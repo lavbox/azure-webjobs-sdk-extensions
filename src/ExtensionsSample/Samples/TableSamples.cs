@@ -10,6 +10,7 @@ namespace ExtensionsSample
     {
         // Demonstrates use of a custom table binding extension to bind Table
         // to a custom type (Table<T>).
+        [NoAutomaticTrigger]
         public static void CustomBinding([Table("sampletable")] Table<Person> table)
         {
             Person entity = new Person()

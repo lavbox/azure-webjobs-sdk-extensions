@@ -10,6 +10,7 @@ namespace ExtensionsSample
 {
     public static class SampleSamples
     {
+        [NoAutomaticTrigger]
         public static void Sample_BindToStream([Sample(@"sample\path")] Stream stream)
         {
             using (StreamWriter sw = new StreamWriter(stream))
@@ -18,16 +19,19 @@ namespace ExtensionsSample
             }
         }
 
+        [NoAutomaticTrigger]
         public static void Sample_BindToString([Sample(@"sample\path")] out string data)
         {
             data = "Sample";
         }
 
+        [NoAutomaticTrigger]
         public static void SampleTrigger([SampleTrigger(@"sample\path")] SampleTriggerValue value)
         {
             Console.WriteLine("Sample trigger job called!");
         }
 
+        [NoAutomaticTrigger]
         public static void SampleTrigger_BindToString([SampleTrigger(@"sample\path")] string value)
         {
             Console.WriteLine("Sample trigger job called!");

@@ -23,6 +23,7 @@ namespace ExtensionsSample.Samples
         /// </summary>
         /// <param name="filter">The <see cref="TraceFilter"/> that caused the error
         /// trigger to fire.</param>
+        [NoAutomaticTrigger]
         public static void ErrorMonitor(
             [ErrorTrigger("00:30:00", 10)] TraceFilter filter, TextWriter log)
         {

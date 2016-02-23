@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Microsoft.Azure.WebJobs;
 using Microsoft.Azure.WebJobs.Host;
 using Newtonsoft.Json.Linq;
+using System.Globalization;
 
 namespace ExtensionsSample
 {
@@ -53,11 +54,23 @@ namespace ExtensionsSample
         /// </summary>
         public static void HookD([WebHookTrigger] WebHookContext context)
         {
+            var obj = context.Request.Content.ReadAsAsync<JObject>().Result;
+            
             context.Response = new HttpResponseMessage(HttpStatusCode.Accepted)
             {
-                Content = new StringContent("Custom Response!")
+                Content = new StringContent(string.Format("{{  ToUpper: {0}, OnDate:{1}  }}", ((string)obj["Id"]).ToUpper(CultureInfo.CurrentCulture), System.DateTime.UtcNow.ToString()))
             };
         }
+
+        //public static void HookE([WebHookTrigger] WebHookContext context)
+        //{
+        //    var obj = context.Request.Content.ReadAsAsync<JObject>();
+
+        //    context.Response = new HttpResponseMessage(HttpStatusCode.Accepted)
+        //    {
+        //        Content = new StringContent(string.Format("{{  ToUpper: {0}, OnDate:{1}  }}", ((string)obj["Id"]).ToUpper(CultureInfo.CurrentCulture), System.DateTime.UtcNow.ToString()))
+        //    };
+        //}
 
         /// <summary>
         /// GitHub WebHook example, showing integration with the ASP.NET WebHooks SDK.

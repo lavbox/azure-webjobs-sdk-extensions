@@ -15,6 +15,7 @@ namespace ExtensionsSample
     {
         // When new files arrive in the "import" directory, they are uploaded to a blob
         // container then deleted.
+        [NoAutomaticTrigger]
         public static void ImportFile(
             [FileTrigger(@"import/{name}", "*.dat", autoDelete: true)] Stream file,
             [Blob(@"processed/{name}")] CloudBlockBlob output,
@@ -27,6 +28,7 @@ namespace ExtensionsSample
             log.WriteLine(string.Format("Processed input file '{0}'!", name));
         }
 
+        [NoAutomaticTrigger]
         public static void ImportFileErrorHandler(
             [ErrorTrigger] TraceEvent error, string message, TextWriter log)
         {
@@ -36,6 +38,7 @@ namespace ExtensionsSample
         }
 
         // When files are created or modified in the "cache" directory, this job will be triggered.
+        [NoAutomaticTrigger]
         public static void ChangeWatcher(
             [FileTrigger(@"cache\{name}", "*.txt", WatcherChangeTypes.Created | WatcherChangeTypes.Changed)] string file,
             FileSystemEventArgs fileTrigger,
@@ -46,6 +49,7 @@ namespace ExtensionsSample
 
         // Drop a file in the "convert" directory, and this function will reverse it
         // the contents and write the file to the "converted" directory.
+        [NoAutomaticTrigger]
         public static void Converter(
             [FileTrigger(@"convert\{name}", "*.txt", autoDelete: true)] string file,
             [File(@"converted\{name}", FileAccess.Write)] out string converted)
@@ -56,6 +60,7 @@ namespace ExtensionsSample
         }
 
         // Every time the timer fires, this file will update a file with the current time.
+        [NoAutomaticTrigger]
         public static void Heartbeat(
             [TimerTrigger("*/5 * * * * *")] TimerInfo timerInfo,
             [File(@"heartbeat.txt", FileAccess.Write, FileMode.Append)] Stream file)
@@ -66,6 +71,7 @@ namespace ExtensionsSample
             }
         }
 
+        [NoAutomaticTrigger]
         public static void ReadWrite(
             [File(@"input.txt", FileAccess.Read, FileMode.OpenOrCreate)] Stream input,
             [File(@"output.txt", FileAccess.Write, FileMode.Append)] Stream output)

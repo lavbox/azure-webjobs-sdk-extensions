@@ -12,6 +12,7 @@ namespace WebJobsSandbox
         /// <summary>
         /// Example job triggered by a crontab schedule.
         /// </summary>
+        [NoAutomaticTrigger]
         public static void CronJob([TimerTrigger("*/15 * * * * *")] TimerInfo timerInfo)
         {
             Console.WriteLine("Timer job fired!");
@@ -21,6 +22,7 @@ namespace WebJobsSandbox
         /// Example job triggered by an crontab schedule that is also configured
         /// to run immediately on startup.
         /// </summary>
+        [NoAutomaticTrigger]
         public static void StartupJob([TimerTrigger("0 0 */2 * * *", RunOnStartup = true)] TimerInfo timerInfo)
         {
             Console.WriteLine("Timer job fired!");
@@ -33,6 +35,7 @@ namespace WebJobsSandbox
         /// <summary>
         /// Example job triggered by a timespan schedule.
         /// </summary>
+        [NoAutomaticTrigger]
         public static void TimerJob([TimerTrigger("01:00:00")] TimerInfo timerInfo)
         {
             Console.WriteLine("Timer job fired!");
@@ -41,6 +44,7 @@ namespace WebJobsSandbox
         /// <summary>
         /// Example job triggered by a custom schedule.
         /// </summary>
+        [NoAutomaticTrigger]
         public static void WeeklyTimerJob([TimerTrigger(typeof(MyWeeklySchedule))] TimerInfo timerInfo)
         {
             Console.WriteLine("Timer job fired!");
